@@ -6,6 +6,7 @@ pipeline {
         GIT_REPO_URL = 'https://github.com/gertrude654/jenkins-lab.git'
         GIT_BRANCH = 'master'
         DOCKERHUB_CREDENTIALS_ID = '425775b7-629b-4c2f-b757-74f5dc26fbe4'
+        DOCKERHUB_REPO = 'gerturde/jenkinslab'
     }
 
     stages {
@@ -22,6 +23,7 @@ pipeline {
                 echo 'Maven build completed'
             }
         }
+
         stage('Test') {
             steps {
                 script {
@@ -35,22 +37,6 @@ pipeline {
                 }
             }
         }
-
-
-//         stage('Test') {
-//             steps {
-//                 script {
-//                     def hasTests = sh(script: 'find src/test/java -name "*.java" | wc -l', returnStdout: true).trim()
-//                     if (hasTests != "0") {
-//                         echo "Running tests..."
-//                         bat 'mvn test'
-//                     } else {
-//                         echo "No tests found, skipping test stage"
-//                     }
-//                 }
-//             }
-//         }
-
 
         stage('Package') {
             steps {
@@ -80,8 +66,8 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDENTIALS_ID}", usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                             bat """
                             docker login -u %DOCKERHUB_USERNAME% -p %DOCKERHUB_PASSWORD%
-                            docker tag ${DOCKER_IMAGE} %DOCKERHUB_USERNAME%/${DOCKER_IMAGE}
-                            docker push %DOCKERHUB_USERNAME%/${DOCKER_IMAGE}
+                            docker tag ${DOCKER_IMAGE} %DOCKERHUB_USERNAME%/${DOCKERHUB_REPO}:latest
+                            docker push %DOCKERHUB_USERNAME%/${DOCKERHUB_REPO}:latest
                             """
                         }
                     } catch (Exception e) {
