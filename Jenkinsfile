@@ -22,11 +22,10 @@ pipeline {
                 echo 'Maven build completed'
             }
         }
-
         stage('Test') {
             steps {
                 script {
-                    def hasTests = sh(script: 'find src/test/java -name "*.java" | wc -l', returnStdout: true).trim()
+                    def hasTests = bat(script: 'dir /S /B src\\test\\java\\*.java 2>nul | find /C ":"', returnStdout: true).trim()
                     if (hasTests != "0") {
                         echo "Running tests..."
                         bat 'mvn test'
@@ -36,6 +35,22 @@ pipeline {
                 }
             }
         }
+
+
+//         stage('Test') {
+//             steps {
+//                 script {
+//                     def hasTests = sh(script: 'find src/test/java -name "*.java" | wc -l', returnStdout: true).trim()
+//                     if (hasTests != "0") {
+//                         echo "Running tests..."
+//                         bat 'mvn test'
+//                     } else {
+//                         echo "No tests found, skipping test stage"
+//                     }
+//                 }
+//             }
+//         }
+
 
         stage('Package') {
             steps {
