@@ -33,12 +33,16 @@ This section explains how to deploy and manage a Java application on Kubernetes 
 Ensure you have the following installed and configured:
 
 -**Kubernetes Cluster**: You can use a local Kubernetes cluster (e.g., Minikube) or a cloud-based solution (e.g., Google Kubernetes Engine, AWS EKS).
+
 -**kubectl**: The Kubernetes command-line tool for interacting with the cluster.
+
 -**Docker**: Ensure the application is containerized and the image is available in a Docker registry.
 Kubernetes Components
-#### 1. Deployment**
+
+#### 1. Deployment
 The Deployment manages the pods for running your application. It ensures that the desired number of replicas of the application are running.
-#### 2. Service**
+
+#### 2. Service
 The Service exposes your application to be accessed externally. In this example, we use a NodePort service, which maps a port on your Kubernetes nodes to your application.
 
 ### Document link
