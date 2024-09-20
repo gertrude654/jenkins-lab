@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkinslab-service
+spec:
+  selector:
+    app: jenkinslab
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5080
+  type: LoadBalancer

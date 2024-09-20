@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkinslab-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jenkinslab
+  template:
+    metadata:
+      labels:
+        app: jenkinslab
+    spec:
+      containers:
+        - name: jenkinslab-container
+          image: gerturde/jenkinslab:latest
+          ports:
+            - containerPort: 5080
