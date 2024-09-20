@@ -84,7 +84,7 @@ pipeline {
                         // Stop and redeploy Docker container
                         bat """
                         docker stop \$(docker ps -q --filter ancestor=${DOCKER_IMAGE}) || true
-                        docker run -d ${DOCKER_IMAGE}
+                        docker run -d -p 5080:5080 ${DOCKER_IMAGE}
                         """
                     } catch (Exception e) {
                         error "Deployment failed: ${e.message}"

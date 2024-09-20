@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class JenkinsMessageController {
     @GetMapping("/messages")
     public String getMessage() {
-        return "Hello from Docker!";
+        return "Hello from Docker, Jenkins and Kubernetes!";
     }
 }
